@@ -27,7 +27,6 @@ const controlRecipes = async function () {
   try {
     // lec 290
     const id = window.location.hash.slice(1);
-    console.log(id);
 
     if (!id) return;
 
@@ -53,11 +52,12 @@ const controlRecipes = async function () {
 
 const controlSearchResults = async function () {
   try {
+    // 0) render spinner
     resultsView.renderSpinner();
 
     // 1) get search query
     const query = searchView.getQuery();
-    if (!query) return;
+    // if (!query) throw new Error('Please Enter Something !!!');
 
     // 2) Load search results
     await model.loadSearchResults(query);
@@ -68,7 +68,8 @@ const controlSearchResults = async function () {
     // 4) render pagination buttons
     paginationView.render(model.state.search);
   } catch (err) {
-    console.log(err);
+    console.error(err);
+    resultsView.renderError();
   }
 };
 
@@ -145,6 +146,5 @@ const init = function () {
   searchView.addHandlerSearch(controlSearchResults);
   paginationView.addHandlerClick(controlPagination);
   addRecipeView.addHandlerUpload(controlAddRecipe);
-  console.log('Welcome');
 };
 init();
