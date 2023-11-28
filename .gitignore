@@ -1,0 +1,4 @@
+# put folders and flies that we want to ignore
+node_modules
+dist
+.parcel-cache
